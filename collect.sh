@@ -6,4 +6,4 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-python3 collect/main.py $1 $2 $3
+nohup python3 collect/main.py $1 $2 $3 &

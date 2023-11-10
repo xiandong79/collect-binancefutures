@@ -158,7 +158,7 @@ class BinanceFutures:
         try:
             # stream = '/'.join(['%s@depth@0ms/%s@trade/%s@markPrice@1s/%s@bookTicker' % (symbol, symbol, symbol, symbol)
             #                    for symbol in self.symbols])
-            stream = '/'.join(['%s@depth10@0ms/%s@aggTrade/%s@markPrice@1s/%s@bookTicker' % (symbol, symbol, symbol, symbol)
+            stream = '/'.join(['%s@depth10@100ms/%s@aggTrade' % (symbol, symbol, symbol, symbol)
                                for symbol in self.symbols])
             url = 'wss://fstream.binance.com/stream?streams=%s' % stream
             async with ClientSession() as session:

@@ -26,7 +26,7 @@ class BinanceFutures:
         # logging.debug(message)
         stream = message['stream']
         tokens = stream.split('@')
-        if tokens[1] == 'depth':
+        if tokens[1] == 'depth10':  # 而不是默认的 'depth'
             symbol = tokens[0]
             data = message['data']
             u = data['u']

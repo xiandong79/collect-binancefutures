@@ -156,7 +156,9 @@ class BinanceFutures:
 
     async def connect(self):
         try:
-            stream = '/'.join(['%s@depth@0ms/%s@trade/%s@markPrice@1s/%s@bookTicker' % (symbol, symbol, symbol, symbol)
+            # stream = '/'.join(['%s@depth@0ms/%s@trade/%s@markPrice@1s/%s@bookTicker' % (symbol, symbol, symbol, symbol)
+            #                    for symbol in self.symbols])
+            stream = '/'.join(['%s@depth10@0ms/%s@aggTrade/%s@markPrice@1s/%s@bookTicker' % (symbol, symbol, symbol, symbol)
                                for symbol in self.symbols])
             url = 'wss://fstream.binance.com/stream?streams=%s' % stream
             async with ClientSession() as session:
@@ -193,7 +195,8 @@ class BinanceFutures:
         await asyncio.sleep(1)
 
     async def __get_marketdepth_snapshot(self, symbol):
-        data = await self.__curl(verb='GET', path='/v1/depth', query={'symbol': symbol, 'limit': 1000})
+        # data = await self.__curl(verb='GET', path='/v1/depth', query={'symbol': symbol, 'limit': 1000})
+        data = await self.__curl(verb='GET', path='/v1/depth', query={'symbol': symbol, 'limit': 10})
         self.queue.put((symbol, time.time(), json.dumps(data)))
         lastUpdateId = data['lastUpdateId']
         self.prev_u[symbol] = None
